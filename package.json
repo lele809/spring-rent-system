@@ -6,9 +6,8 @@
   "scripts": {
     "install": "node install-script.js",
     "build": "node build-script.js",
-    "build:vite": "vite build",
-    "dev": "node dev-script.js",
-    "preview": "node preview-script.js"
+    "dev": "cd house-fronted && npm run dev",
+    "preview": "cd house-fronted && npm run preview"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -35,4 +34,4 @@
     "vite": "^7.1.0",
     "vue-tsc": "^3.0.5"
   }
-} 
+}
