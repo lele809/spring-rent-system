@@ -11,17 +11,15 @@ services:
       - key: PORT
         value: 8080
       - key: DATABASE_URL
-        fromDatabase:
-          name: house-postgres
-          property: connectionString
+        value: # 请在 Render Dashboard 中设置您的 Supabase 数据库连接字符串
       - key: DATABASE_USERNAME
-        fromDatabase:
-          name: house-postgres
-          property: user
+        value: # 请在 Render Dashboard 中设置您的 Supabase 数据库用户名
       - key: DATABASE_PASSWORD
-        fromDatabase:
-          name: house-postgres
-          property: password
+        value: # 请在 Render Dashboard 中设置您的 Supabase 数据库密码
+      - key: SUPABASE_URL
+        value: # 请在 Render Dashboard 中设置您的 Supabase 项目 URL
+      - key: SUPABASE_ANON_KEY
+        value: # 请在 Render Dashboard 中设置您的 Supabase 匿名密钥
       - key: SPRING_PROFILES_ACTIVE
         value: prod
     autoDeploy: true
@@ -31,20 +29,17 @@ services:
     name: house-frontend
     env: static
     plan: free
-    rootDir: house-fronted
-    buildCommand: npm ci && npm run build
-    staticPublishPath: ./dist
+    buildCommand: cd house-fronted && npm ci && npm run build
+    staticPublishPath: ./house-fronted/dist
     envVars:
       - key: VITE_API_BASE_URL
         value: https://house-backend.onrender.com
+      - key: VITE_SUPABASE_URL
+        value: # 请在 Render Dashboard 中设置您的 Supabase 项目 URL
+      - key: VITE_SUPABASE_ANON_KEY
+        value: # 请在 Render Dashboard 中设置您的 Supabase 匿名密钥
     autoDeploy: true
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
-
-databases:
-  # 如果你不使用Supabase，可以用Render的PostgreSQL
-  - name: house-postgres
-    databaseName: rent_system
-    plan: free 
