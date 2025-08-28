@@ -27,9 +27,9 @@ services:
   # 前端Vue应用
   - type: web
     name: house-frontend
-    env: static
+    env: node
     plan: free
-    buildCommand: chmod +x ./build-frontend.sh && ./build-frontend.sh
+    buildCommand: npm install && npm run build
     staticPublishPath: ./house-fronted/dist
     envVars:
       - key: VITE_API_BASE_URL
@@ -43,3 +43,5 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+
+# 不再需要 Render 的 PostgreSQL 数据库，改用 Supabase 
