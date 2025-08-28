@@ -1,0 +1,9 @@
+@echo off
+echo 正在停止现有的Java进程...
+taskkill /f /im java.exe 2>nul
+
+echo 等待3秒...
+timeout /t 3 /nobreak > nul
+
+echo 启动Spring Boot应用...
+gradlew.bat bootRun 

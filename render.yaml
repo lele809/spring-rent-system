@@ -1,0 +1,47 @@
+services:
+  # 后端Spring Boot应用
+  - type: web
+    name: house-backend
+    env: java
+    plan: free
+    buildCommand: cd house && ./gradlew build -x test
+    startCommand: cd house && java -Dspring.profiles.active=prod -jar build/libs/house-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        value: # 请在 Render Dashboard 中设置您的 Supabase 数据库连接字符串
+      - key: DATABASE_USERNAME
+        value: # 请在 Render Dashboard 中设置您的 Supabase 数据库用户名
+      - key: DATABASE_PASSWORD
+        value: # 请在 Render Dashboard 中设置您的 Supabase 数据库密码
+      - key: SUPABASE_URL
+        value: # 请在 Render Dashboard 中设置您的 Supabase 项目 URL
+      - key: SUPABASE_ANON_KEY
+        value: # 请在 Render Dashboard 中设置您的 Supabase 匿名密钥
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+    autoDeploy: true
+
+  # 前端Vue应用
+  - type: web
+    name: house-frontend
+    env: static
+    plan: free
+    buildCommand: chmod +x ./build-frontend.sh && ./build-frontend.sh
+    staticPublishPath: ./house-fronted/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://house-backend.onrender.com
+      - key: VITE_SUPABASE_URL
+        value: # 请在 Render Dashboard 中设置您的 Supabase 项目 URL
+      - key: VITE_SUPABASE_ANON_KEY
+        value: # 请在 Render Dashboard 中设置您的 Supabase 匿名密钥
+    autoDeploy: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+# 不再需要 Render 的 PostgreSQL 数据库，改用 Supabase 
