@@ -29,7 +29,7 @@ services:
     name: house-frontend
     env: static
     plan: free
-    buildCommand: cd house-fronted && npm ci && npm run build
+    buildCommand: chmod +x ./build-frontend.sh && ./build-frontend.sh
     staticPublishPath: ./house-fronted/dist
     envVars:
       - key: VITE_API_BASE_URL
