@@ -27,10 +27,10 @@ services:
   # 前端Vue应用
   - type: web
     name: house-frontend
-    env: static
+    env: node
     plan: free
-    buildCommand: chmod +x ./flexible-build.sh && echo '=== Directory Debug ===' && pwd && ls -la && echo '=== Running Flexible Build Script ===' && ./flexible-build.sh && echo '=== Finding dist directory ===' && find . -name "dist" -type d | head -5
-    staticPublishPath: ./house-fronted/dist
+    buildCommand: echo '=== Debug: Check structure ===' && pwd && ls -la && echo '=== Install and Build ===' && npm install && npm run build && echo '=== Check dist output ===' && ls -la dist/
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_API_BASE_URL
         value: https://house-backend.onrender.com
@@ -44,4 +44,4 @@ services:
         source: /*
         destination: /index.html
 
-# 不再需要 Render 的 PostgreSQL 数据库，改用 Supabase 
+# 不再需要 Render 的 PostgreSQL 数据库，改用 Supabase
