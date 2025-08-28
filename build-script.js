@@ -31,11 +31,9 @@ try {
       // Copy directory recursively
       fs.cpSync(distSource, distTarget, { recursive: true });
     }
-  } else if (fs.existsSync('package.json')) {
-    console.log('Building in current directory...');
-    execSync('npm run build', { stdio: 'inherit' });
+    console.log('Frontend build completed successfully!');
   } else {
-    throw new Error('No package.json found in current directory or house-fronted subdirectory');
+    console.log('No house-fronted directory found, skipping frontend build.');
   }
   
   console.log('Build completed successfully!');
