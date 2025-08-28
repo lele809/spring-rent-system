@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "House rental management system",
   "scripts": {
-    "install": "cd house-fronted && npm ci",
-    "build": "cd house-fronted && npm run build",
+    "install": "echo '=== Debug: Current directory ===' && pwd && echo '=== Debug: Directory contents ===' && ls -la && echo '=== Debug: Checking for frontend directory ===' && if [ -d 'house-fronted' ]; then echo 'house-fronted directory found' && cd house-fronted && npm ci; else echo 'ERROR: house-fronted directory not found' && exit 1; fi",
+    "build": "echo '=== Debug: Build started ===' && pwd && ls -la && if [ -d 'house-fronted' ]; then echo 'Building frontend...' && cd house-fronted && npm run build; else echo 'ERROR: house-fronted directory not found during build' && exit 1; fi",
     "dev": "cd house-fronted && npm run dev",
     "preview": "cd house-fronted && npm run preview"
   },
