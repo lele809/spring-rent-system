@@ -27,9 +27,9 @@ services:
   # 前端Vue应用
   - type: web
     name: house-frontend
-    env: node
+    env: static
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: chmod +x ./flexible-build.sh && echo '=== Directory Debug ===' && pwd && ls -la && echo '=== Running Flexible Build Script ===' && ./flexible-build.sh && echo '=== Finding dist directory ===' && find . -name "dist" -type d | head -5
     staticPublishPath: ./house-fronted/dist
     envVars:
       - key: VITE_API_BASE_URL
