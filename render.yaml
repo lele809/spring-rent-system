@@ -4,8 +4,8 @@ services:
     name: house-backend
     env: java
     plan: free
-    buildCommand: cd house && ./gradlew build -x test
-    startCommand: cd house && java -Dspring.profiles.active=prod -jar build/libs/house-0.0.1-SNAPSHOT.jar
+    buildCommand: chmod +x house/house/gradlew && ./house/house/gradlew build -x test
+    startCommand: java -Dspring.profiles.active=prod -jar house/house/build/libs/house-0.0.1-SNAPSHOT.jar
     healthCheckPath: /actuator/health
     envVars:
       - key: PORT
@@ -27,9 +27,9 @@ services:
   # 前端Vue应用
   - type: web
     name: house-frontend
-    env: static
+    env: node
     plan: free
-    buildCommand: chmod +x ./build-frontend.sh && ./build-frontend.sh
+    buildCommand: echo '=== Debug: Check structure ===' && pwd && ls -la && echo '=== Navigate to frontend ===' && cd house-fronted && echo '=== Install and Build ===' && npm install && npm run build && echo '=== Check dist output ===' && ls -la dist/
     staticPublishPath: ./house-fronted/dist
     envVars:
       - key: VITE_API_BASE_URL
@@ -44,4 +44,4 @@ services:
         source: /*
         destination: /index.html
 
-# 不再需要 Render 的 PostgreSQL 数据库，改用 Supabase 
+# 不再需要 Render 的 PostgreSQL 数据库，改用 Supabase
