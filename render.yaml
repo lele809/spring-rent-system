@@ -5,7 +5,9 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./house/Dockerfile
+    dockerContext: ./house
     healthCheckPath: /actuator/health
+    buildCommand: echo "Using Docker build - no custom build command needed"
     envVars:
       - key: PORT
         value: 8080
