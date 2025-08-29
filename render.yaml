@@ -1,13 +1,12 @@
 services:
-  # 后端服务
+  # 后端服务 (使用 Docker)
   - type: web
     name: house-backend
-    runtime: java
-    buildCommand: chmod +x house/gradlew && cd house && ./gradlew build -x test
-    startCommand: cd house && java -jar build/libs/*.jar
+    env: docker
+    dockerfilePath: ./house/Dockerfile
+    dockerContext: ./house
     plan: free
     autoDeploy: false
-    env: java17
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
@@ -18,7 +17,10 @@ services:
   # 前端服务  
   - type: static
     name: house-frontend
-    buildCommand: cd house-fronted && npm ci && npm run build
+    buildCommand: |
+      cd house-fronted
+      npm ci
+      npm run build
     staticPublishPath: house-fronted/dist
     plan: free
     autoDeploy: false
