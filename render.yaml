@@ -3,8 +3,11 @@ services:
   - type: web
     name: house-backend
     env: docker
-    dockerfilePath: house/Dockerfile
-    dockerContext: house
+    repo: https://github.com/lele809/spring-rent-system
+    branch: main
+    rootDir: house
+    dockerfilePath: ./Dockerfile
+    dockerContext: ./
     plan: free
     autoDeploy: false
     envVars:
