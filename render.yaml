@@ -7,7 +7,7 @@ services:
     branch: main
     rootDir: house
     dockerfilePath: ./Dockerfile
-    dockerContext: ./
+    dockerContext: ./house
     plan: free
     autoDeploy: false
     envVars:
