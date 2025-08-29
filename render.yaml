@@ -4,7 +4,7 @@ services:
     name: house-backend
     env: java
     plan: free
-    buildCommand: ./house/gradlew build -x test
+    buildCommand: chmod +x house/gradlew && ./house/gradlew build -x test
     startCommand: java -Dspring.profiles.active=prod -jar house/build/libs/house-0.0.1-SNAPSHOT.jar
     healthCheckPath: /actuator/health
     envVars:
